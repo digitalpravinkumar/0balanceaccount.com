@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>KYC Form</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f0f4f8;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 480px;
+      margin: auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      animation: fadeIn 0.7s ease-in-out;
+    }
+
+    h1 {
+      font-size: 1.5rem;
+      text-align: center;
+      margin-bottom: 15px;
+      color: #333;
+    }
+
+    .redirect-btn {
+      display: block;
+      background: #d81b60;
+      color: #fff;
+      text-align: center;
+      padding: 10px;
+      border-radius: 8px;
+      text-decoration: none;
+      margin-bottom: 20px;
+      transition: background 0.3s ease;
+    }
+
+    .redirect-btn:hover {
+      background: #c2185b;
+    }
+
+    label {
+      font-weight: 600;
+      display: block;
+      margin: 10px 0 5px;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      transition: border-color 0.3s;
+    }
+
+    input:focus, select:focus {
+      border-color: #4caf50;
+      outline: none;
+    }
+
+    .checkbox-group {
+      margin: 10px 0;
+    }
+
+    .checkbox-group label {
+      display: flex;
+      align-items: center;
+      font-size: 0.95rem;
+      font-weight: normal;
+      gap: 10px;
+    }
+
+    small {
+      display: block;
+      font-size: 0.8rem;
+      color: #666;
+      margin: 5px 0;
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 12px;
+      background: #4caf50;
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .submit-btn:hover {
+      background: #43a047;
+    }
+
+    .note {
+      text-align: center;
+      font-size: 0.9rem;
+      margin-top: 15px;
+      color: #333;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1>Request for account opening with physical KYC in Mumbai</h1>
+
+  <a class="redirect-btn" href="https://0balanceaccount.com/not_in_mumbai_click-_here/" target="_blank">
+    Not in Mumbai? Click here.
+  </a>
+
+  <form id="kycForm">
+    <label for="name">Enter your name *</label>
+    <input type="text" id="name" name="name" required>
+
+    <label for="pincode">Enter pincode *</label>
+    <input type="text" id="pincode" name="pincode" required>
+
+    <label for="mobile">Enter mobile number *</label>
+    <input type="tel" id="mobile" name="mobile" required>
+
+    <label for="altmobile">Another mobile number (optional)</label>
+    <input type="tel" id="altmobile" name="altmobile">
+
+    <label for="date">Enter the date *</label>
+    <input type="date" id="date" name="date" required>
+
+    <label for="accounts">Number of accounts *</label>
+    <input type="number" id="accounts" name="accounts" min="1" required>
+
+    <label for="type">Select type of account *</label>
+    <select id="type" name="type" required>
+      <option value="">--Select--</option>
+      <option value="Kotak 811 Regular">Kotak 811 Regular</option>
+      <option value="Kotak 811 Super">Kotak 811 Super</option>
+    </select>
+
+    <div class="checkbox-group">
+      <label><input type="checkbox" name="aadhar" required> I have Aadhar card</label>
+      <label><input type="checkbox" name="pan" required> I have PAN card</label>
+      <label><input type="checkbox" name="no_kotak" required> I don’t have any active Kotak bank account</label>
+      <label><input type="checkbox" name="deposit" required> I have initial deposit amount for KYC</label>
+    </div>
+
+    <small>* Yes, it’s 0 balance just for KYC. You can withdraw full amount within a few hours: ₹1000 for Regular, ₹5000 for Super.</small>
+    <small>* Make sure phone number is correct</small>
+
+    <button type="submit" class="submit-btn">Submit</button>
+  </form>
+
+  <p class="note">Recommendation: Kotak 811 Super is more beneficial</p>
+</div>
+
+<script>
+  document.getElementById("kycForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const form = e.target;
+    const formData = new FormData(form);
+
+    fetch("https://script.google.com/macros/s/AKfycbwk-nzkEUTAXl0x_a-DufV0UtrPPS2uBmKYvcMNUrdT_LLhpp8eCaGwzOdcxa_hdtjh/exec", {
+      method: "POST",
+      body: formData
+    })
+    .then(response => {
+      if (response.ok) {
+        alert("Submitted successfully!");
+        window.location.href = "https://0balanceaccount.com/thankyou/";
+      } else {
+        alert("Submission failed. Please try again.");
+      }
+    })
+    .catch(error => {
+      console.error("Error!", error.message);
+      alert("There was a problem submitting the form.");
+    });
+  });
+</script>
+
+</body>
+</html>
